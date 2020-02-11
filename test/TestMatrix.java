@@ -8,13 +8,13 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 /**
- * class de test de la class matrix
+ * Classe de test de la classe matrix
  * @see common.Matrix
  */
 public class TestMatrix {
 
     /**
-     * fonction qui test le premiers contruteurs
+     * Fonction qui teste le premier constructeur.
      */
     @Test
     public void test_contructeur_type_1() {
@@ -31,7 +31,7 @@ public class TestMatrix {
     }
 
     /**
-     * fonction qui test le deuxieme contruteurs
+     * Fonction qui teste le deuxième constructeur.
      */
     @Test
     public void test_contructeur_type_2() {
@@ -45,7 +45,7 @@ public class TestMatrix {
     }
 
     /**
-     * fonction qui test les accées a la matrice
+     * Fonction qui teste les accèes à la matrice.
      */
     @Test
     public void test_acces() {
@@ -57,7 +57,7 @@ public class TestMatrix {
     }
 
     /**
-     * fonction qui test les faux accées a la matrice
+     * Fonction qui teste une position inconnue de la matrice
      */
     @Test(expected = ArrayIndexOutOfBoundsException.class)
     public void test_acces_avec_erreurs_sup() {
@@ -66,7 +66,7 @@ public class TestMatrix {
     }
 
     /**
-     * fonction qui test les faux accées a la matrice
+     * Fonction qui teste une position inconnue de la matrice
      */
     @Test(expected = ArrayIndexOutOfBoundsException.class)
     public void test_acces_avec_erreurs_bot() {
