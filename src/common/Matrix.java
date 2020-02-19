@@ -39,6 +39,7 @@ public class Matrix implements Serializable {
 	 * 
 	 * @param lines tableau correpondant a toutes les lines.
 	 */
+	@SafeVarargs
 	public Matrix(List<Double>... lines) {
 		this.matrix = new ArrayList<>();
 		Arrays.stream(lines).forEach(line -> {
