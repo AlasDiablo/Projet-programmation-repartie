@@ -4,6 +4,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 public interface ServiceNode extends Remote {
-    void sum(int a, int b) throws RemoteException;
-    void mul(int a, int b) throws RemoteException;
+    double sum(double a, double b) throws RemoteException;
+    double mul(double a, double b) throws RemoteException;
+    double parseAndCalcul(String formula) throws RemoteException;
 }
