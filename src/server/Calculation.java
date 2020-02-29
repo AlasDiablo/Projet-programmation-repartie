@@ -28,7 +28,7 @@ public class Calculation implements ServiceCalculation {
 
         for (int y = 0; y < aY; y++) {
             for (int x = 0; x < bX; x++) {
-                Pair<Integer, Integer> pos = new Pair<>(x, y);
+                Pair<Integer, Integer> pos = new Pair<>(y, x);
                 StringBuilder calcul = new StringBuilder();
                 for (int i = 0; i < aX; i++) {
                     calcul.append(a.getAt(i, y)).append("x").append(b.getAt(x, i));
