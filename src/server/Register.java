@@ -2,7 +2,6 @@ package server;
 
 import common.ServiceNode;
 import common.ServiceRegister;
-import javafx.util.Pair;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -23,5 +22,9 @@ public class Register implements ServiceRegister {
 
     public List<ServiceNode> getNodes() {
         return nodes;
+    }
+
+    public void removeNodes(List<ServiceNode> nodeToRemove) {
+        this.nodes.removeAll(nodeToRemove);
     }
 }

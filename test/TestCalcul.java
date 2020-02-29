@@ -1,4 +1,5 @@
 import common.Matrix;
+import common.ServiceNode;
 import javafx.util.Pair;
 import node.Node;
 import org.junit.Before;
@@ -53,7 +54,7 @@ public class TestCalcul {
     }
 
     @Test
-    public void testProduct() {
+    public void testProduct1() {
         Matrix a = new Matrix(
                 new Double[] {1d, 0d},
                 new Double[] {2d, -1d}
@@ -62,68 +63,89 @@ public class TestCalcul {
                 new Double[] {3d, 4d},
                 new Double[] {-2d, -3d}
         );
-        productOfMatrix(a, b);
+        Matrix c = new Matrix(
+                new Double[] {3d, 4d},
+                new Double[] {8d, 11d}
+        );
+        assertEquals("La matrice calculé n'est pas bonne", c, productOfMatrix(a, b));
     }
 
     @Test
     public void testProduct2() {
         Matrix a = new Matrix(
-                new Double[] {11d, 12d, 13d},
-                new Double[] {21d, 22d, 23d},
-                new Double[] {31d, 32d, 33d}
+                new Double[] {1d, 2d, 0d},
+                new Double[] {4d, 3d, -1d}
         );
         Matrix b = new Matrix(
-                new Double[] {111d, 112d, 113d},
-                new Double[] {221d, 222d, 223d},
-                new Double[] {331d, 332d, 333d}
+                new Double[] {5d, 1d},
+                new Double[] {2d, 3d},
+                new Double[] {3d, 4d}
         );
-        productOfMatrix(a, b);
+        Matrix c = new Matrix(
+                new Double[] {9d, 7d},
+                new Double[] {23d, 9d}
+        );
+        assertEquals("La matrice calculé n'est pas bonne", c, productOfMatrix(a, b));
     }
 
     @Test
     public void testProduct3() {
         Matrix a = new Matrix(
-                new Double[] {11d, 12d, 13d},
-                new Double[] {21d, 22d, 23d}
+                new Double[] {5d, 1d},
+                new Double[] {2d, 3d},
+                new Double[] {3d, 4d}
         );
         Matrix b = new Matrix(
-                new Double[] {111d, 112d},
-                new Double[] {221d, 222d},
-                new Double[] {331d, 332d}
+                new Double[] {1d, 2d, 0d},
+                new Double[] {4d, 3d, -1d}
         );
-        productOfMatrix(a, b);
+        Matrix c = new Matrix(
+                new Double[] {9d, 13d, -1d},
+                new Double[] {14d, 13d, -3d},
+                new Double[] {19d, 18d, -4d}
+        );
+        assertEquals("La matrice calculé n'est pas bonne", c, productOfMatrix(a, b));
     }
 
-    private void productOfMatrix(Matrix a, Matrix b) {
+    /**
+     * Fonction non repatie de Calculation
+     * @see server.Calculation
+     */
+    public Matrix productOfMatrix(Matrix a, Matrix b) {
         int aX = a.getSizeX(),
                 aY = a.getSizeY(),
                 bX = b.getSizeX(),
-                bY = b.getSizeY(),
-                rX = bX,
-                rY = aY;
-        System.out.println("X = " + rX + ", Y = " + rY);
+                bY = b.getSizeY();
         List<Pair<Pair<Integer, Integer>, String>> toCalcul = new ArrayList<>();
         List<List<Double>> rawMatrix = new ArrayList<>();
         for (int i = 0; i < aY; i++) {
             rawMatrix.add(new ArrayList<>());
         }
 
-        for (int y = 0; y < rY; y++) {
-            for (int x = 0; x < rX; x++) {
+        for (int y = 0; y < aY; y++) {
+            for (int x = 0; x < bX; x++) {
                 Pair<Integer, Integer> pos = new Pair<>(x, y);
                 StringBuilder calcul = new StringBuilder();
                 for (int i = 0; i < aX; i++) {
-                    calcul.append(a.getAt(i, y));
-                    calcul.append("x");
-                    calcul.append(b.getAt(x, i));
+                    calcul.append(a.getAt(i, y)).append("x").append(b.getAt(x, i));
                     if (i + 1 < aX) calcul.append("+");
                 }
                 toCalcul.add(new Pair<>(pos, calcul.toString()));
             }
         }
 
-        toCalcul.forEach(e -> System.out.println("at x = " + e.getKey().getKey() + ", y = " + e.getKey().getValue() + ": " + e.getValue()));
+        while (toCalcul.size() != 0) {
+            Pair<Pair<Integer, Integer>, String> calc = toCalcul.remove(0);
+            double res;
+            try {
+                res = node.parseAndCalcul(calc.getValue());
+                rawMatrix.get(calc.getKey().getKey()).add(calc.getKey().getValue(), res);
+            } catch (RemoteException e) {
+                toCalcul.add(calc);
+            }
+        }
 
+        return new Matrix(rawMatrix);
     }
 
 

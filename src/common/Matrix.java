@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Classe qui représente les matrices.
@@ -51,6 +52,21 @@ public class Matrix implements Serializable {
 	}
 
 	/**
+	 * Constructeur qui associe des listes à chaque ligne.
+	 *
+	 * @param lines list correpondant a toutes les lines.
+	 */
+	public Matrix(List<List<Double>> lines) {
+		this.matrix = new ArrayList<>();
+		lines.forEach(line -> {
+			if (this.sizeX < line.size())
+				this.sizeX = line.size();
+			this.matrix.add(line);
+		});
+		this.sizeY = lines.size();
+	}
+
+	/**
 	 * Fonction d'accès à une valeur pour une position donnée.
 	 * 
 	 * @param x position sur la ligne.
@@ -88,5 +104,30 @@ public class Matrix implements Serializable {
 	 */
 	public int getSizeY() {
 		return this.sizeY;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Matrix matrix1 = (Matrix) o;
+		return getSizeX() == matrix1.getSizeX() &&
+				getSizeY() == matrix1.getSizeY() &&
+				matrix.toString().equals(matrix1.matrix.toString());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(matrix, getSizeX(), getSizeY());
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder str = new StringBuilder();
+		this.matrix.forEach(e -> {
+			e.forEach(d -> str.append(String.format("%f ", d)));
+			str.append("\n");
+		});
+		return str.toString();
 	}
 }
