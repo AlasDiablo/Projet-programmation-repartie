@@ -1,11 +1,13 @@
 package node;
 
 import common.ServiceNode;
+import javafx.util.Pair;
 
 import java.rmi.RemoteException;
 import java.util.StringTokenizer;
 
 public class Node implements ServiceNode {
+
     @Override
     public double sum(double a, double b) throws RemoteException {
         return a + b;

@@ -62,9 +62,9 @@ public class Matrix implements Serializable {
 	 */
 	public Double getAt(int x, int y) throws ArrayIndexOutOfBoundsException {
 		if (x >= this.sizeX || x < 0)
-			throw new ArrayIndexOutOfBoundsException("X value to big!");
+			throw new ArrayIndexOutOfBoundsException("X value to big!\n X = " + x + ", Y = " + y);
 		if (y >= this.sizeY || y < 0)
-			throw new ArrayIndexOutOfBoundsException("Y value to big!");
+			throw new ArrayIndexOutOfBoundsException("Y value to big!\n X = " + x + ", Y = " + y);
 		try {
 			return this.matrix.get(y).get(x);
 		} catch (Exception e) {
