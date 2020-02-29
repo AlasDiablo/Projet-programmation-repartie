@@ -5,7 +5,6 @@ import common.ServiceCalculation;
 import common.ServiceNode;
 import javafx.util.Pair;
 
-import java.rmi.MarshalException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +12,10 @@ import java.util.List;
 public class Calculation implements ServiceCalculation {
 
     private Register register;
+
+    public Calculation(Register register) {
+        this.register = register;
+    }
 
     @Override
     public Matrix productOfMatrix(Matrix a, Matrix b) throws RemoteException {

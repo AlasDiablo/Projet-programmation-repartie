@@ -1,7 +1,6 @@
 package node;
 
 import common.ServiceNode;
-import javafx.util.Pair;
 
 import java.rmi.RemoteException;
 import java.util.StringTokenizer;
