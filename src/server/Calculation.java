@@ -45,15 +45,17 @@ public class Calculation implements ServiceCalculation {
             List<ServiceNode> nodeToRemove = new ArrayList<>();
             this.register.getNodes().forEach(node -> new Thread(() -> {
                 synchronized (toCalcul) {
-                    Pair<Pair<Integer, Integer>, String> calc = toCalcul.remove(0);
-                    double res;
                     try {
-                        res = node.parseAndCalcul(calc.getValue());
-                        rawMatrix.get(calc.getKey().getKey()).add(calc.getKey().getValue(), res);
-                    } catch (RemoteException e) {
-                        nodeToRemove.add(node);
-                        toCalcul.add(calc);
-                    }
+                        Pair<Pair<Integer, Integer>, String> calc = toCalcul.remove(0);
+                        double res;
+                        try {
+                            res = node.parseAndCalcul(calc.getValue());
+                            rawMatrix.get(calc.getKey().getKey()).add(calc.getKey().getValue(), res);
+                        } catch (RemoteException e) {
+                            nodeToRemove.add(node);
+                            toCalcul.add(calc);
+                        }
+                    } catch (IndexOutOfBoundsException ignored) {}
                 }
             }).start());
             this.register.removeNodes(nodeToRemove);
