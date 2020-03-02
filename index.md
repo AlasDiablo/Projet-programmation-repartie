@@ -8,7 +8,9 @@ Sujet: Calculer le produit de 2 matrices
 
 Executer la commande suivante pour compiler le serveur: `javac StartServer.java`.
 
-Pour lancer le serveur, faites dans un premier temps la commande `rmiregistry` puis, dans un second temps, dans un autre terminal exécuter `java StartServer`.
+Pour lancer le serveur, faites dans un premier temps la commande `rmiregistry`.
+
+Puis dans un second temps, dans un autre terminal exécuter `java StartServer`.
 
 ## Setup d'un Noeud:
 
