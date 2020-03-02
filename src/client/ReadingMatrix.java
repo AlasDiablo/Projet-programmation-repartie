@@ -23,10 +23,10 @@ public class ReadingMatrix {
 		List<String[]> tabSplit = this.readFile(file);
 		List<List<String>> stringlistSplit = convertirTableau(tabSplit);
 
-		List<List<Double>> newMatrix = new ArrayList<List<Double>>();
+		List<List<Double>> newMatrix = new ArrayList<>();
 
 		for (int line = 0; line < stringlistSplit.size(); line++) {
-			newMatrix.add(new ArrayList<Double>());
+			newMatrix.add(new ArrayList<>());
 			for (int column = 0; column < stringlistSplit.get(line).size(); column++) {
 				double number = Double.parseDouble(stringlistSplit.get(line).get(column));
 				newMatrix.get(line).add(number);
@@ -36,7 +36,7 @@ public class ReadingMatrix {
 	}
 
 	private List<List<String>> convertirTableau(List<String[]> tabSplit) {
-		List<List<String>> listSplit = new ArrayList<List<String>>();
+		List<List<String>> listSplit = new ArrayList<>();
 		int maxLengthLine = 0;
 		for (String[] tabLine : tabSplit) {
 			if (tabLine.length > maxLengthLine) {
@@ -46,7 +46,7 @@ public class ReadingMatrix {
 		for (String[] tabLine : tabSplit) {
 
 			// converti tableau en liste
-			List<String> column = new ArrayList<String>(Arrays.asList(tabLine));
+			List<String> column = new ArrayList<>(Arrays.asList(tabLine));
 
 			// ajout de 0 pour les colonnes incomplètes
 			if (column.size() < maxLengthLine) {
@@ -65,21 +65,18 @@ public class ReadingMatrix {
 			buffreader = new BufferedReader(new FileReader(file));
 		} catch (FileNotFoundException e) {
 			System.out.println("le fichier est introuvable \n" + e.getMessage());
-			System.exit(0);
+			System.exit(1);
 		}
 		String currentLine;
 		int maxLengthLine = 0;
-		List<String[]> linesList = new ArrayList<String[]>();
+		List<String[]> linesList = new ArrayList<>();
 		while ((currentLine = buffreader.readLine()) != null) {
-			if (currentLine != null) {
-				String[] split = currentLine.split(" ");
-				if (split.length > maxLengthLine) {
-					maxLengthLine = split.length;
-				}
-				linesList.add(split);
+			String[] split = currentLine.split(" ");
+			if (split.length > maxLengthLine) {
+				maxLengthLine = split.length;
 			}
+			linesList.add(split);
 		}
-		System.out.println("La matrice a pu être extraite de " + file.getName());
 		buffreader.close();
 		return linesList;
 	}

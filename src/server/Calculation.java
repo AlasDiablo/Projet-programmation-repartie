@@ -5,9 +5,13 @@ import common.ServiceCalculation;
 import common.ServiceNode;
 import javafx.util.Pair;
 
+import java.lang.management.ThreadInfo;
+import java.lang.reflect.Array;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class Calculation implements ServiceCalculation {
 
@@ -57,10 +61,19 @@ public class Calculation implements ServiceCalculation {
                         }
                     } catch (IndexOutOfBoundsException ignored) {}
                 }
-            }).start());
+            }, "CalculationThread-" + (Thread.activeCount() + 1)).start());
+            waitForCalc();
             this.register.removeNodes(nodeToRemove);
         }
-
+        waitForCalc();
         return new Matrix(rawMatrix);
+    }
+
+    private void waitForCalc() {
+        while (Arrays.stream(Thread.getAllStackTraces().keySet().toArray()).anyMatch(o -> ((Thread) o).getState() == Thread.State.TERMINATED)) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException ignored) {}
+        }
     }
 }
