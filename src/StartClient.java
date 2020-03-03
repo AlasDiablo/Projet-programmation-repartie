@@ -24,9 +24,9 @@ public class StartClient {
 		String server="localhost";
 		int port=1099;
 		if(args.length > 2)
-			server=args[0];
+			server=args[2];
 		if(args.length > 3)
-			port=Integer.parseInt(args[1]);
+			port=Integer.parseInt(args[3]);
 
 		ServiceCalculation serviceCalculation = null;
 
