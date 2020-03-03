@@ -3,15 +3,12 @@ package server;
 import common.Matrix;
 import common.ServiceCalculation;
 import common.ServiceNode;
-import javafx.util.Pair;
+import common.Pair;
 
-import java.lang.management.ThreadInfo;
-import java.lang.reflect.Array;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Predicate;
 
 public class Calculation implements ServiceCalculation {
 
